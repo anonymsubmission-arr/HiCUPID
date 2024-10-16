@@ -1,0 +1,79 @@
+# Arguments
+prompt: zero_v1
+train_seed: 2024
+
+# DPOScriptArguments
+dataset_name: arranonymsub/HiCUPID
+dataset_train_split: train
+dataset_test_split: test
+ignore_bias_buffers: false
+
+# DPOConfig
+learning_rate: 1e-6  # TODO
+beta: 0.1
+label_smoothing: 0.0
+loss_type: sigmoid
+truncation_mode: keep_end
+max_length: 3072
+max_prompt_length: 2560
+max_completion_length: 512
+is_encoder_decoder: null
+disable_dropout: true
+generate_during_eval: false
+precompute_ref_log_probs: false
+dataset_num_proc: 16
+reference_free: false
+force_use_ref_model: false
+f_divergence_type: reverse_kl
+f_alpha_divergence_coef: 1.0
+sync_ref_model: false
+ref_model_mixup_alpha: 0.9
+ref_model_sync_steps: 64
+rpo_alpha: null
+
+# TrainingArguments
+output_dir: output/peft/dpo/lora/Llama-3.1-8B-Instruct  # TODO
+eval_strategy: "no"
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 1
+gradient_accumulation_steps: 8
+torch_empty_cache_steps: 1
+max_grad_norm: 0.3
+num_train_epochs: 3  # TODO
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+logging_steps: 1
+save_strategy: epoch
+# save_steps: 0.1
+bf16: true
+tf32: true
+# eval_steps: 0.1
+dataloader_num_workers: 16
+# remove_unused_columns: false
+optim: adamw_torch_fused
+# group_by_length: true
+report_to: tensorboard
+push_to_hub: false
+resume_from_checkpoint: null
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+use_liger_kernel: false
+
+# ModelConfig
+model_name_or_path: meta-llama/Llama-3.1-8B-Instruct  # TODO
+torch_dtype: bfloat16
+trust_remote_code: false
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 256  # TODO
+lora_alpha: 512  # TODO
+lora_dropout: 0.05
+lora_target_modules: all-linear
+lora_modules_to_save: null
+lora_task_type: CAUSAL_LM
+use_rslora: false
+load_in_8bit: false
+load_in_4bit: false
+bnb_4bit_quant_type: nf4
+use_bnb_nested_quant: false
