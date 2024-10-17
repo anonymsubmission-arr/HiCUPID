@@ -107,7 +107,6 @@ def decode(example, tokenizer, feature):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HiCUPID inference using HuggingFace models")
     parser.add_argument("--model_id", type=str, default="meta-llama/Llama-3.1-8B-Instruct", help="model name for inference")
-    parser.add_argument("--use_peft", type=bool, default=False, help="whether to use AutoPeftModel from peft library")
     parser.add_argument("--peft_path", type=str, default=None, help="path to local peft adapter (e.g. peft/sft/lora/Llama-3.1-8B-Instruct)")
     parser.add_argument("--dataset_id", type=str, default="arranonymsub/HiCUPID", help="dataset name for inference")
     parser.add_argument("--prompt", type=str, default="zero_v1", choices=PROMPT_MESSAGES.keys(), help="prompt method name")
@@ -136,13 +135,10 @@ if __name__ == "__main__":
     torch.set_float32_matmul_precision("high")
     if args.peft_path is not None:
         model = AutoPeftModelForCausalLM.from_pretrained(args.peft_path, torch_dtype=torch.bfloat16, device_map="auto", attn_implementation="flash_attention_2")
-        tokenizer = AutoTokenizer.from_pretrained(model.peft_config["default"].base_model_name_or_path, padding_side="left")
-    elif args.use_peft:
-        model = AutoPeftModelForCausalLM.from_pretrained(args.model_id, torch_dtype=torch.bfloat16, device_map="auto", attn_implementation="flash_attention_2")
-        tokenizer = AutoTokenizer.from_pretrained(model.peft_config["default"].base_model_name_or_path, padding_side="left")
+        tokenizer = AutoTokenizer.from_pretrained(model.config._name_or_path, padding_side="left")
     else:
         model = AutoModelForCausalLM.from_pretrained(args.model_id, torch_dtype=torch.bfloat16, device_map="auto", attn_implementation="flash_attention_2")
-        tokenizer = AutoTokenizer.from_pretrained(args.model_id, padding_side="left")
+        tokenizer = AutoTokenizer.from_pretrained(model.config._name_or_path, padding_side="left")
     model.eval()
     tokenizer.pad_token = tokenizer.eos_token
 
