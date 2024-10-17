@@ -203,7 +203,7 @@ if __name__ == "__main__":
     dataset = dataset.batch(batch_size=2)
     dataset = dataset.map(partial(score, logger=logger), num_proc=args.num_proc)
 
-    logger.info(f"W/D/L: {sum(dataset["win"]) / (2 * len(dataset)) * 100:.1f}/{sum(dataset["tie"]) / (2 * len(dataset)) * 100:.1f}/{sum(dataset["lose"]) / (2 * len(dataset)) * 100:.1f}")
+    logger.info(f"W/D/L: {sum(dataset['win']) / (2 * len(dataset)) * 100:.1f}/{sum(dataset['tie']) / (2 * len(dataset)) * 100:.1f}/{sum(dataset['lose']) / (2 * len(dataset)) * 100:.1f}")
 
     # Save to disk
     dataset = dataset.select_columns(["split", "user_id", "dialogue_id", "question_id", "n_hop", "question", "personalized_answer", "general_answer", "model_answer", "metadata", "eval_a", "eval_b", "win", "tie", "lose"])
