@@ -2,16 +2,16 @@
 
 # environment configs
 default_name="cupid"
+python_version="3.11"
 conda_packages=(
     "pip"
 )
 pip_packages=(
     "jupyter black[jupyter] isort nbqa python-dotenv gpustat tqdm tenacity protobuf packaging ninja"
-    "numpy scipy pandas dask[complete] matplotlib seaborn scikit-learn scikit-learn-intelex"
+    "numpy scipy pandas matplotlib seaborn scikit-learn"
     "torch torchvision torchaudio"
     "huggingface_hub[all] transformers datasets accelerate bitsandbytes peft trl liger-kernel"
     "openai tiktoken sentencepiece einops torchinfo tensorboardX"
-    "flash-attn --no-build-isolation"
 )
 
 # read environment name
@@ -41,7 +41,7 @@ unset __conda_setup
 conda update conda -y
 
 # create conda environment
-conda create -n "$name" -y
+conda create -n "$name" python=$python_version -y
 exit_status=$?
 if [ $exit_status -ne 0 ]; then
     exit $exit_status
