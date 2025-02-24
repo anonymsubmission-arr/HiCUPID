@@ -34,7 +34,7 @@ We introduce 💖 **HiCUPID**, a new benchmark designed to train and evaluate La
 
 - 🧠 **Inference**: Generate answers to 💖 **HiCUPID** questions using various LLMs available on HuggingFace and OpenAI.
 - ⚖️ **Evaluation**: Perform A/B evaluation by comparing model-generated answers with the ground truth.
-- 🎯 **SFT/DPO**: Fine-tune LLMs for personalized AI assistants using the train split of 💖 **HiCUPID** with either [Supervised Fine-Tuning (SFT)](https://arxiv.org/abs/2106.09685) or [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290).
+- 🎯 **SFT, DPO**: Fine-tune LLMs for personalized AI assistants using the train split of 💖 **HiCUPID** with either [Supervised Fine-Tuning (SFT)](https://arxiv.org/abs/2106.09685) or [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290).
 
 ---
 
@@ -431,12 +431,12 @@ Make sure to complete these steps before running any part of the project. Now, y
 
 ## ⚠️ Known Issues
 
-1. **Inference, Evaluation**
+1. **Inference (HuggingFace), Evaluation (HuggingFace)**
    - `bfloat16` data type may not be supported. Remove `torch_dtype=torch.bfloat16` or change it to a different data type.
    - You can use 8-bit or 4-bit quantization. For more details, please refer to [here](https://huggingface.co/docs/transformers/en/quantization/overview).
    - `flash_attention_2` may not be supported. Remove `attn_implementation="flash_attention_2"`.
 
-2. **SFT, DPO, Evaluation Model**
+2. **SFT, DPO**
    - Select the `accelerate` config file that matches the user's multi-GPU environment (e.g., number of GPUs, FSDP).
    - If GPU memory is insufficient, adjust `per_device_train_batch_size`.
    - `bfloat16` data type may not be supported. Set `torch_dtype` to `null` or `auto`.
