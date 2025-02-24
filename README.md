@@ -34,7 +34,7 @@ We introduce 💖 **HiCUPID**, a new benchmark designed to train and evaluate La
 
 - 🧠 **Inference**: Generate answers to 💖 **HiCUPID** questions using various LLMs available on HuggingFace and OpenAI.
 - ⚖️ **Evaluation**: Perform A/B evaluation by comparing model-generated answers with the ground truth.
-- 🎯 **SFT, DPO**: Fine-tune LLMs for personalized AI assistants using the train split of 💖 **HiCUPID** with either [Supervised Fine-Tuning (SFT)](https://arxiv.org/abs/2106.09685) or [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290).
+- 🎯 **SFT/DPO**: Fine-tune LLMs for personalized AI assistants using the train split of 💖 **HiCUPID** with either [Supervised Fine-Tuning (SFT)](https://arxiv.org/abs/2106.09685) or [Direct Preference Optimization (DPO)](https://arxiv.org/abs/2305.18290).
 
 ---
 
